@@ -1,0 +1,22 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #d1d1d1; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+.celular { width: 360px; height: 640px; background: #e5ddd5; border-radius: 30px; overflow: hidden; position: relative; border: 10px solid #222; }
+#cabecalho { background: #075e54; color: white; padding: 15px; display: flex; align-items: center; gap: 10px; font-weight: bold; }
+.avatar { width: 35px; height: 35px; background: #919191; border-radius: 50%; }
+#caixa-mensagens { height: 460px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); }
+.msg { max-width: 85%; padding: 10px; margin-bottom: 10px; border-radius: 10px; font-size: 14px; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+.msg-eu { background: white; align-self: flex-start; border-top-left-radius: 0; }
+.msg-ela { background: #dcf8c6; align-self: flex-end; border-top-right-radius: 0; }
+#container-opcoes { padding: 10px; position: absolute; bottom: 0; width: 100%; display: flex; flex-direction: column; gap: 5px; }
+button { background: white; color: #075e54; border: 1px solid #075e54; padding: 10px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+.barra-zap { display: flex; align-items: center; gap: 8px; width: 100%; padding: 5px; }
+.input-bg { background: white; flex: 1; border-radius: 25px; padding: 5px 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.input-bg input { border: none; width: 100%; padding: 8px; outline: none; font-size: 16px; }
+.btn-enviar { background: #075e54 !important; color: white !important; border: none !important; width: 45px; height: 45px; border-radius: 50% !important; font-size: 20px; }
+.status-gravando { background: none !important; box-shadow: none !important; color: #075e54; font-weight: bold; font-style: italic; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0.5; } }
+.hidden { display: none !important; }
+#tela-surpresa { height: 100%; background: white; padding: 30px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; position: absolute; top: 0; width: 100%; z-index: 100; }
+.coracao { font-size: 60px; animation: pulse 0.6s infinite alternate; }
+@keyframes pulse { from { transform: scale(1); } to { transform: scale(1.2); } }
+.btn-voltar { background: #e91e63 !important; color: white !important; border: none !important; margin-top: 20px; width: 100%; }
