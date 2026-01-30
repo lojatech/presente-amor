@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uma Surpresa Especial</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="celular">
+        <div id="tela-chat">
+            <div id="cabecalho">
+                <div class="avatar"></div>
+                <span>Meu Amor ❤️</span>
+            </div>
+            <div id="caixa-mensagens"></div>
+            <div id="container-opcoes"></div>
+        </div>
+
+        <div id="tela-surpresa" class="hidden">
+            <div class="conteudo-final">
+                <h1>Meu Sonho...</h1>
+                <p>O meu maior sonho não é algo que se compra, mas algo que se vive. É acordar todos os dias sabendo que tenho você ao meu lado, construir uma história linda e fazer de você a pessoa mais feliz do mundo. Você é o meu sonho real.</p>
+                <div class="coracao">❤️</div>
+                <button onclick="voltarParaChat()" class="btn-voltar">Voltar para a conversa</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const caixa = document.getElementById('caixa-mensagens');
+        const opcoes = document.getElementById('container-opcoes');
+
+        // Roteiro ampliado para demorar mais um pouco
+        const roteiro = [
+            { eu: "Oi! Tudo bem? Estava aqui lembrando de você agora...", resp: ["Oi amor! Tudo bem e você?", "Opa, que bom! 😊", "Sempre pensando em mim?"] },
+            { eu: "Tudo ótimo! Como foi seu dia hoje? Muito corrido?", resp: ["Foi sim, cansei muito", "Foi tranquilo até", "Normal, a rotina de sempre"] },
+            { eu: "Entendo... O meu também foi produtivo, mas não via a hora de parar pra falar contigo.", resp: ["Que fofo! 🥰", "Também queria falar com você", "Estava com saudade?"] },
+            { eu: "Muita! Sabe que eu estava aqui parado agora, só pensando...", resp: ["Pensando em quê? 😊", "Ih, lá vem mistério...", "Fala logo, curioso!"] },
+            { eu: "Lembrando de quando a gente começou a se falar. O tempo voa, né?", resp: ["Voa demais!", "Parece que foi ontem", "Verdade, mudou tudo"] },
+            { eu: "Eu andei refletindo sobre o que realmente importa pra mim hoje.", resp: ["E o que é?", "Me conta!", "Fiquei interessada..."] },
+            { eu: "É que eu tenho uma surpresa guardada... algo que chamo de 'meu maior sonho'.", resp: ["Qual o seu sonho?", "Ai meu Deus, o que é?", "Diz pra mim!"] },
+            { eu: "Mas será que eu conto? Tenho medo de ser meloso demais kkkk", resp: ["Pode ser meloso!", "Eu adoro isso", "Não aguento suspense!"] },
+            { eu: "Tá bom... mas pergunta de novo: qual o meu sonho?", resp: ["Qual é o seu sonho?", "Diz: qual o seu sonho?", "Quero saber agora!"] }
+        ];
+
+        let etapa = 0;
+
+        function addMsg(txt, tipo) {
+            const div = document.createElement('div');
+            div.className = 'msg ' + (tipo === 'eu' ? 'msg-eu' : 'msg-ela');
+            div.innerText = txt;
+            caixa.appendChild(div);
+            caixa.scrollTop = caixa.scrollHeight;
+        }
+
+        function proximo() {
+            opcoes.innerHTML = '';
+            if (etapa < roteiro.length) {
+                setTimeout(() => {
+                    addMsg(roteiro[etapa].eu, 'eu');
+                    setTimeout(() => {
+                        roteiro[etapa].resp.forEach(t => {
+                            const b = document.createElement('button');
+                            b.innerText = t;
+                            b.onclick = () => { addMsg(t, 'ela'); etapa++; proximo(); };
+                            opcoes.appendChild(b);
+                        });
+                    }, 1200); // Um pouco mais de tempo para ela ler
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    addMsg("Prepara o coração... vou te mostrar agora.", 'eu');
+                    setTimeout(() => {
+                        document.getElementById('tela-chat').classList.add('hidden');
+                        document.getElementById('tela-surpresa').classList.remove('hidden');
+                    }, 2500);
+                }, 1000);
+            }
+        }
+
+        function voltarParaChat() {
+            document.getElementById('tela-surpresa').classList.add('hidden');
+            document.getElementById('tela-chat').classList.remove('hidden');
+            setTimeout(() => {
+                addMsg("Gostou do que eu escrevi? 🙈", 'eu');
+                ["Amei muito! ❤️", "Fiquei sem palavras", "Que coisa linda!"].forEach(t => {
+                    const b = document.createElement('button');
+                    b.innerText = t;
+                    b.onclick = () => { addMsg(t, 'ela'); opcoes.innerHTML = ''; tocarMusica(); };
+                    opcoes.appendChild(b);
+                });
+            }, 1000);
+        }
+
+        function tocarMusica() {
+            addMsg("Eu também preparei uma música para você...", 'eu');
+            setTimeout(() => {
+                const gravando = document.createElement('div');
+                gravando.className = 'msg msg-eu status-gravando';
+                gravando.innerText = "🎤 Gravando áudio...";
+                caixa.appendChild(gravando);
+                setTimeout(() => {
+                    gravando.remove();
+                    const div = document.createElement('div');
+                    div.className = 'msg msg-eu';
+                    div.innerHTML = `<audio controls style="width:180px;height:35px;"><source src="musica.mp3" type="audio/mpeg"></audio>`;
+                    caixa.appendChild(div);
+                    liberarWhats();
+                }, 4000);
+            }, 1500);
+        }
+
+        function liberarWhats() {
+            opcoes.innerHTML = `
+                <div class="barra-zap">
+                    <div class="input-bg">
+                        <input type="text" id="final-txt" placeholder="Diga o que achou...">
+                    </div>
+                    <button class="btn-enviar" onclick="enviarWhats()">➔</button>
+                </div>`;
+        }
+
+        function enviarWhats() {
+            const msg = document.getElementById('final-txt').value;
+            const meuWhats = "5585997661162"; 
+            if(msg) {
+                window.open(`https://api.whatsapp.com/send?phone=${meuWhats}&text=${encodeURIComponent(msg)}`);
+            }
+        }
+
+        proximo();
+    </script>
+</body>
+</html>
